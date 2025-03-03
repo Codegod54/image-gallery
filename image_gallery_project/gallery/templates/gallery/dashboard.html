@@ -1,0 +1,29 @@
+{% extends 'gallery/base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<h1 class="mb-4">Dashboard</h1>
+<a href="{% url 'upload' %}" class="btn btn-success mb-3">Upload New Image</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Image</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for image in images %}
+    <tr>
+      <td><img src="{{ image.image.url }}" alt="{{ image.title }}" style="height:50px;"></td>
+      <td>{{ image.title }}</td>
+      <td>{{ image.description|truncatewords:10 }}</td>
+      <td>
+        <a href="{% url 'edit_image' image.id %}" class="btn btn-sm btn-primary">Edit</a>
+        <a href="{% url 'delete_image' image.id %}" class="btn btn-sm btn-danger">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
